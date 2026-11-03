@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة الكتب والمراجع العالمية</title>
+    
+    <!-- PWA Settings -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="المكتبة العالمية">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 p-4 shadow-md sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-cyan-400">📚 مكتبة الكتب والمراجع العالمية</h1>
+            <button id="installBtn" onclick="promptInstall()" class="bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition shadow">
+                تثبيت التطبيق 📱
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto p-4 w-full space-y-6">
+        
+        <!-- Search & Backup Bar -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-between items-center bg-slate-800 p-4 rounded-xl border border-slate-700">
+            <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="ابحث في الكتب، المراجع، أو مواصفات الـ ISO..." 
+                class="w-full sm:w-2/3 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 focus:outline-none focus:border-cyan-500">
+            <div class="flex gap-2 w-full sm:w-auto">
+                <button onclick="exportData()" class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-lg text-sm transition">تصدير 📤</button>
+                <label class="flex-1 sm:flex-none bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-lg text-sm transition text-center cursor-pointer">
+                    استيراد 📥
+                    <input type="file" id="importFile" onchange="importData(event)" class="hidden" accept=".json">
+                </label>
+            </div>
+        </div>
+
+        <!-- Sections -->
+        <div class="space-y-6" id="libraryContent">
+            
+            <!-- Microbiology -->
+            <section class="card bg-slate-800/60 border border-slate-700/80 rounded-xl p-5 shadow-lg">
+                <h2 class="text-lg font-semibold text-cyan-300 mb-3 border-b border-slate-700 pb-2">🧫 أمهات كتب الميكروبيولوجيا</h2>
+                <ul class="space-y-2 text-slate-300">
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>Brock Biology of Microorganisms</strong> — المفاهيم والأحياء الدقيقة.</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>Modern Food Microbiology</strong> (James M. Jay) — الميكروبيولوجيا الغذائية.</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>Pharmaceutical Microbiology</strong> (Hugo and Russell) — الميكروبيولوجيا الدوائية الصيدلانية.</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>Standard Methods for the Examination of Water and Wastewater</strong> (APHA) — فحص المياه والخرسانة البيئية.</li>
+                </ul>
+            </section>
+
+            <!-- Analytical Chemistry -->
+            <section class="card bg-slate-800/60 border border-slate-700/80 rounded-xl p-5 shadow-lg">
+                <h2 class="text-lg font-semibold text-cyan-300 mb-3 border-b border-slate-700 pb-2">🧪 أمهات كتب الكيمياء التحليلية</h2>
+                <ul class="space-y-2 text-slate-300">
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>Skoog and West's Fundamentals of Analytical Chemistry</strong> — مرجع الكيمياء التحليلية والأجهزة.</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>Vogel's Textbook of Quantitative Chemical Analysis</strong> — مرجع المعايرات والتحليل الحجمي.</li>
+                </ul>
+            </section>
+
+            <!-- ISO Standards -->
+            <section class="card bg-slate-800/60 border border-slate-700/80 rounded-xl p-5 shadow-lg">
+                <h2 class="text-lg font-semibold text-cyan-300 mb-3 border-b border-slate-700 pb-2">📋 فهرس أدلة الـ ISO والمواصفات القياسية الدولية</h2>
+                <ul class="space-y-2 text-slate-300">
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>ISO 17025:2017:</strong> متطلبات كفاءة معامل الاختبار والمعايرة.</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>ISO 7218:</strong> القواعد العامة للفحوصات الميكروبيولوجية.</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>ISO 6579-1 / ISO 4833-1:</strong> ميكروبيولوجيا الأغذية (عد البكتيريا والسالمونيلا).</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>ISO 22000 / HACCP:</strong> سلامة وإدارة سلامة الأغذية.</li>
+                    <li class="item bg-slate-800 p-3 rounded-lg border border-slate-700"><strong>AOAC Official Methods & USP / Ph. Eur:</strong> المراجع الصيدلانية والكيميائية المعتمدة.</li>
+                </ul>
+            </section>
+
+            <!-- Personal Notes -->
+            <section class="card bg-slate-800/60 border border-slate-700/80 rounded-xl p-5 shadow-lg">
+                <h2 class="text-lg font-semibold text-cyan-300 mb-3 border-b border-slate-700 pb-2">📝 ملاحظاتي الشخصية (محفوظة محلياً)</h2>
+                <textarea id="userNotes" placeholder="اكتب ملاحظاتك، أكواد المعايرة، أو الملاحظات هنا... تحفظ تلقائياً على هاتفك دون حاجة للإنترنت."
+                    class="w-full h-32 bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-200 focus:outline-none focus:border-cyan-500 text-sm"></textarea>
+                <button onclick="saveNotes()" class="mt-2 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">حفظ الملاحظات 💾</button>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 border-t border-slate-700 text-center py-4 text-xs text-slate-400 mt-auto">
+        مكتبة المراجع والمواصفات القياسية الدولية © 2026 - PWA Ready
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // Inline Manifest Generation for Offline PWA Support
+        const manifestData = {
+            "name": "مكتبة الكتب والمراجع العالمية",
+            "short_name": "المكتبة العالمية",
+            "start_url": ".",
+            "display": "standalone",
+            "background_color": "#0f172a",
+            "theme_color": "#1e293b",
+            "icons": [{ "src": "https://img.icons8.com/color/192/books.png", "sizes": "192x192", "type": "image/png" }]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestURL;
+        document.head.appendChild(link);
+
+        // Load & Save Notes
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedNotes = localStorage.getItem('library_user_notes');
+            if (savedNotes) document.getElementById('userNotes').value = savedNotes;
+        });
+
+        function saveNotes() {
+            const notes = document.getElementById('userNotes').value;
+            localStorage.setItem('library_user_notes', notes);
+            alert('تم حفظ الملاحظات على هاتفك بنجاح!');
+        }
+
+        // Export & Import
+        function exportData() {
+            const notes = localStorage.getItem('library_user_notes') || '';
+            const blob = new Blob([JSON.stringify({ notes }, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'library-notes.json';
+            a.click();
+        }
+
+        function importData(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const data = JSON.parse(evt.target.result);
+                    if (data.notes !== undefined) {
+                        document.getElementById('userNotes').value = data.notes;
+                        localStorage.setItem('library_user_notes', data.notes);
+                        alert('تم استيراد الملاحظات بنجاح!');
+                    }
+                } catch (err) { alert('ملف غير صالح'); }
+            };
+            reader.readAsText(file);
+        }
+
+        // Real-time Search
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        // PWA Installation Handling
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function promptInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt = null;
+            } else {
+                alert('لتثبيت التطبيق: افتح الخيارات من متصفحك (⋮) واضغط على "إضافة إلى الشاشة الرئيسية" أو "تثبيت التطبيق".');
+            }
+        }
+    </script>
+</body>
+</html>
